@@ -4,6 +4,8 @@ Dragmap is the Dragen mapper/aligner Open Source Software.
 
 ## Installation
 
+The simplest solution is to download the precompailed static version, it should be compatible with any debian OS based. For other OS I have never tested it.
+
 ### Build from source
 
 #### Install
