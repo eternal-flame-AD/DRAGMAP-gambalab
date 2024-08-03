@@ -53,7 +53,3 @@ Or directly to a file :
 
     dragen-os -r /home/data/reference/ -1 reads_1.fastq.gz  >  result.sam
 
-
-## Pull requests
-
-We are not accepting pull requests into this repository at this time, in particular because of conflicts concerns with our internal repository. For any bug report / recommendation / feature request, please open an issue.
