@@ -4,67 +4,22 @@ Dragmap is the Dragen mapper/aligner Open Source Software.
 
 ## Installation
 
-### Using bioconda
-
-Dragmap is available in the [Bioconda](https://anaconda.org/bioconda/dragmap) package manager.If you choose to install with bioconda, please first follow the bioconda install procedure from here:
-https://bioconda.github.io/user/install.html
-
-Once you have bioconda installed, you should be able to install Dragmap with  `conda install dragmap` (or `conda create -n myenv dragmap` to install in a new environment). This will install the `dragen-os` binary.
-
 ### Build from source
-
-#### Prerequisites
-
-Compilation was tested on CentOS 7
-
-* C++17 compatible compiler (e.g gcc-c++ >= 7.1)
-* GNU make >= 3.82
-* Boost library :  boost169-devel >= 1.69.0-1.el7
-* For unit tests : googletest (>= v1.6)
-* Hardware: x86_86, 64GB RAM minimum
-* OS: Centos >= 7.7
 
 #### Install
 
 
 The basic procedure is
 
-    make
+    export HAS_GTEST=0
+    export STATIC=1
+    make -j 4
 
 Binary will be generated in ./build/release/
-
 
 Then optionally, to install to /usr/bin/
 
     make install
-
-
-
-By default make will compile and launch unit tests. To disable unit tests, use HAS_GTEST=0, e.g. :
-
-
-    HAS_GTEST=0 make
-
-
-To compile with unit tests, if google test was installed in user space, it might be required to set GTEST_ROOT and LD_LIBRARY_PATH to where gtest was installed, e.g. : 
-
-    export GTEST_ROOT=/home/username/lib/gtest
-    export LD_LIBRARY_PATH=/home/username/lib/gtest/lib
-
-
-
-
-#### Other variables controlling the build process:
-
-
-* GCC_BASE 
-* CXX 
-* BOOST_ROOT 
-* BOOST_INCLUDEDIR 
-* BOOST_LIBRARYDIR 
-
-
-
 
 
 ## Basic command line usage 
