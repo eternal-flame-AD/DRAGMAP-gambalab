@@ -24,7 +24,7 @@ docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
 ```
 
-Below an example of how to use it with singularity. See details below on how to idex the ref
+Below an example of how to use it with singularity.
 ```
 # Build hash table of a reference fasta file
 singularity exec --bind /usr/lib/locale/ \
