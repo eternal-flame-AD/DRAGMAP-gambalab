@@ -23,7 +23,28 @@ docker pull docker://gambalab/dragmap
 docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
 ```
-If you are used to docker the usage should be simple:
+
+Below an example of how to use it with singularity. See details below on how to idex the ref
+```
+# Build hash table of a reference fasta file
+singularity exec --bind /usr/lib/locale/ \
+    /path/to/dragmap_latest.sif \
+    dragen-os \
+    --build-hash-table true \
+    --ht-reference reference.fasta \
+    --output-directory /home/data/reference/
+
+# Align paired-end reads
+singularity exec --bind /usr/lib/locale/ \
+    /path/to/dragmap_latest.sif \
+    dragen-os \
+    --preserve-map-align-order true \
+    --num-threads ${cpus} \
+    --RGID "${ID}" \
+    --RGSM "${sample}" \
+    --ref-dir ${ref_genome_dragmap} \
+    --fastq-file1 ${fastqR1} --fastq-file2 ${fastqR2}
+```
     
 ### Build from source
 
