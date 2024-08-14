@@ -34,7 +34,7 @@ DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.si
 ${DRAGMAP_exec} dragen-os \
     --build-hash-table true \
     --ht-reference reference.fasta \
-    --output-directory /home/data/reference/
+    --output-directory ${ref_genome_dragmap}
 
 # Align paired-end reads
 ${DRAGMAP_exec} dragen-os \
