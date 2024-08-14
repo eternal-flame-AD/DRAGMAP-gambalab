@@ -57,7 +57,6 @@ int GetDmiValue(const std::string& label, std::string& value)
   FILE* dmiOutput = popen("sudo /usr/sbin/dmidecode -t 2", "r");
   if (dmiOutput == NULL) {
     perror("dmidecode popen");
-    pclose(dmiOutput);
     return -1;
   }
 
