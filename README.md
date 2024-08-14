@@ -4,7 +4,7 @@ This is a fork prividing Dragmap docker/singularity image.
 Dragmap is the Dragen mapper/aligner Open Source Software.
 
 ## Install with Singularity or Docker
-The simplest solution is to use the docker/singularity image I created. The image also include some additional useful tools like **bcftools**, **samtools**, **tabix** and **sambamba** tools. You can install the dragmap docker image with the following command:
+A straightforward approach is to utilize the pre-built Docker/Singularity image I've created. This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, and **sambamba** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
 
 ```
 # 1. Install with Singularity and test it
@@ -21,7 +21,8 @@ docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
 ```
 
-Below an example of how to use it with singularity. Docker will be similar you just have to mount the proper voluomes with with unput files using the -v argument. 
+Below is an example of how to use the image with Singularity. The Docker usage is similar, requiring only the appropriate mounting of input files using the -v argument.
+
 ```
 # Let's define e DRAGMAP_exec variable to excec the several commands 
 DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.sif"
