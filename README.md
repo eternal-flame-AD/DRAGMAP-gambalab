@@ -1,13 +1,10 @@
 # Dragmap 
 
+This is a fork prividing Dragmap docker/singularity image.
 Dragmap is the Dragen mapper/aligner Open Source Software.
 
-## Installation
-
-The simplest solution is to download the precompailed static version, it should be compatible with any debian OS based. For other OS I have never tested it.
-
 ## Install with Singularity or Docker
-Another simple solution is to use the docker/singularity image I created. The image also include some additional useful tools like **bcftools**, **samtools**, **tabix** and **sambamba** tools. You can install the dragmap docker image with the following command:
+The simplest solution is to use the docker/singularity image I created. The image also include some additional useful tools like **bcftools**, **samtools**, **tabix** and **sambamba** tools. You can install the dragmap docker image with the following command:
 
 ```
 # 1. Install with Singularity and test it
