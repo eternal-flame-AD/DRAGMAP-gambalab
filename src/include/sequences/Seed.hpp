@@ -16,6 +16,7 @@
 #define SEQUENCES_SEED_HPP
 
 #include <ostream>
+#include <cstdint>
 #include <vector>
 
 #include "sequences/Read.hpp"

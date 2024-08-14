@@ -16,7 +16,7 @@
 #define MAP_SEED_POSITION_HPP
 
 #include <ostream>
-
+#include <cstdint>
 #include "sequences/Seed.hpp"
 
 namespace dragenos {
