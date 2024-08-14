@@ -7,7 +7,7 @@ Dragmap is the Dragen mapper/aligner Open Source Software.
 The simplest solution is to download the precompailed static version, it should be compatible with any debian OS based. For other OS I have never tested it.
 
 ## Install with Singularity or Docker
-Another simple solution is to use the docker/singularity image I created. The image also include bcftools, samtools, tabix and sambamba tools. You can install the dragmap docker image with the following command:
+Another simple solution is to use the docker/singularity image I created. The image also include some additional useful tools like **bcftools**, **samtools**, **tabix** and **sambamba** tools. You can install the dragmap docker image with the following command:
 
 ```
 # 1. Install with Singularity and test it
@@ -24,26 +24,26 @@ docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
 ```
 
-Below an example of how to use it with singularity.
+Below an example of how to use it with singularity. Docker will be similar you just have to mount the proper voluomes with with unput files using the -v argument. 
 ```
+# Let's define e DRAGMAP_exec variable to excec the several commands 
+DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.sif"
+
 # Build hash table of a reference fasta file
-singularity exec --bind /usr/lib/locale/ \
-    /path/to/dragmap_latest.sif \
-    dragen-os \
+${DRAGMAP_exec} dragen-os \
     --build-hash-table true \
     --ht-reference reference.fasta \
     --output-directory /home/data/reference/
 
 # Align paired-end reads
-singularity exec --bind /usr/lib/locale/ \
-    /path/to/dragmap_latest.sif \
-    dragen-os \
+${DRAGMAP_exec} dragen-os \
     --preserve-map-align-order true \
     --num-threads ${cpus} \
     --RGID "${ID}" \
     --RGSM "${sample}" \
     --ref-dir ${ref_genome_dragmap} \
-    --fastq-file1 ${fastqR1} --fastq-file2 ${fastqR2}
+    --fastq-file1 ${fastqR1} --fastq-file2 ${fastqR2} | \
+     ${DRAGMAP_exec} samtools view --threads 2 -bh -o ${BAM_OUT}
 ```
     
 ### Build from source
