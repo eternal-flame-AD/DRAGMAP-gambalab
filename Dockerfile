@@ -50,3 +50,7 @@ ENV PATH="${PATH}":/opt/conda/bin:/opt/conda/envs/bio/bin:/opt/dragmap/bin
 
 CMD ["/opt/dragmap/bin/dragen-os", "--help"]
 
+V PATH="${PATH}":/opt/conda/bin:/opt/conda/envs/bio/bin:/opt/dragmap/bin
+
+CMD ["/opt/dragmap/bin/dragen-os", "--help"]
+
