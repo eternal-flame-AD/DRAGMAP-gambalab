@@ -163,7 +163,7 @@ ionice -c 3 samtools fixmate \
         --threads ${cpus} \
         -O bam \
         -rpcm "${ALN_FOLDER}/${SAMPLE}.unsorted.bam" - | \
-        sambamba sort -t ${cpus} -m 8G -o /dev/stdout /dev/stdin | \
+        sambamba sort -t ${cpus} -m 16G -o /dev/stdout /dev/stdin | \
         samtools markdup --threads ${cpus} -rS - "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
 
 print_info "Indexing ..."
