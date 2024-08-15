@@ -7,7 +7,7 @@ Dragmap is the Dragen mapper/aligner Open Source Software.
 You can download the binary file in release, tt should work on any debian based distro. Otherwise a straightforward approach is to utilize the pre-built Docker/Singularity image I've created.
 
 ## Install with Singularity or Docker
-This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, and **sambamba** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
+This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, **sambamba** and **bbmap** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
 
 ```
 # 1. Install with Singularity and test it
@@ -46,8 +46,57 @@ ${DRAGMAP_exec} dragen-os \
     --fastq-file1 ${fastqR1} --fastq-file2 ${fastqR2} | \
      ${DRAGMAP_exec} samtools view --threads 2 -bh -o ${BAM_OUT}
 ```
-    
-### Build from source
+
+### ALN PIPELINE
+In the docker/singularity image there is also a one click pipeline we built. It starts from fastQ files and can evantually trim it before to alignment. It also removes dup reads using samtools markdup.
+
+```
+# Let's define e DRAGMAP_exec variable to excec the several commands 
+DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.sif"
+
+# Let's see the help
+${DRAGMAP_exec} run_aln.sh -h
+
+This pipeline employs DragMap for efficient read alignment, incorporating optional preprocessing and post-processing steps.
+
+Key Steps:
+
+  1. Optional Trimming: If enabled, reads are initially trimmed using the BBduk tool to remove low-quality bases and adaptors.
+  2. Alignment: The trimmed or original reads are aligned to the reference genome using DragMap.
+  3. Duplicate Marking and Removal: Samtools markdup is utilized to identify and remove potential PCR duplicates from the aligned reads.
+  4. Output Organization: Results are organized into three distinct folders:
+	 4.1 aln: Contains the final aligned BAM file.
+	 4.2 fastq: Stores the trimmed FASTQ files if trimming was performed.
+	 4.3 stat: Provides statistical information about trimming (if applicable) and alignment coverage.
+
+This streamlined workflow ensures accurate and efficient read alignment, while the organized output facilitates downstream analysis.
+
+Syntax: run_dragen.sh [h|s|1|2|o|r|c|t]
+options:
+-h     Print this Help.
+-c     Number of cpus to use.
+-o     Output directory.
+-s     Sample name.
+-1     Path to the read1 FASTQ
+-2     Path to the read2 FASTQ
+-r     Path to the Dragmap reference folder.
+-t     Trimming. Default false.
+```
+So a typical case of use will be something like this:
+```
+${DRAGMAP_exec} \
+    run_aln.sh \
+   -c 24 \
+   -o /path/to/output_folder \
+   -s ${SAMPLE} \
+   -1 /path/to/fastQ_R1 \
+   -2 /path/to/fastQ_R2 \
+   -r /path/to/dragmap_idx_folder \
+   -t "true"
+```
+At the end of alignmet output files are stored under /path/to/output_folder/${SAMPLE}
+
+### Build from source a standalone dragen-os file
 
 #### Install
 
@@ -63,34 +112,3 @@ Binary will be generated in ./build/release/
 Then optionally, to install to /usr/bin/
 
     make install
-
-
-## Basic command line usage 
-
-### Command line options 
-
-    dragen-os --help
-
-
-### Build hash table of a reference fasta file 
-
-    dragen-os --build-hash-table true --ht-reference reference.fasta  --output-directory /home/data/reference/
-
-### Build hash table using an alt-masked bed file
-
-    dragen-os --build-hash-table true --ht-reference hg38.fa  --output-directory /home/data/reference/ --output-file-prefix=dragmap.hg38_alt_masked --ht-mask-bed=fasta_mask/hg38_alt_mask.bed
-
-### Align paired-end reads :
-
-Output result to standard output 
-
-    dragen-os -r /home/data/reference/ -1 reads_1.fastq.gz -2 reads_2.fastq.gz >  result.sam
-
-Or directly to a file :
-
-    dragen-os -r /home/data/reference/ -1 reads_1.fastq.gz -2 reads_2.fastq.gz --output-directory /home/data/  --output-file-prefix result
-
-### Align single-end reads :
-
-    dragen-os -r /home/data/reference/ -1 reads_1.fastq.gz  >  result.sam
-
