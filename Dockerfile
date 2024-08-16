@@ -8,7 +8,7 @@ FROM continuumio/miniconda3 AS conda_setup
 RUN conda config --add channels defaults && \
     conda config --add channels bioconda && \
     conda config --add channels conda-forge
-RUN conda create -n bio \
+RUN conda create -y -n bio \
                     bioconda::bcftools=1.20 \
                     bioconda::samtools=1.20 \
                     bioconda::tabix=0.2.6 \
