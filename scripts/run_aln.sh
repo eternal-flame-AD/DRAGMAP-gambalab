@@ -64,7 +64,7 @@ Help()
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 declare -i count=0
 trim="false"
-while getopts ":htc:o:s:1:2:r:t:" option; do
+while getopts ":ht:c:o:s:1:2:r:t:" option; do
    case $option in
       h) # display Help
          Help
