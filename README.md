@@ -9,7 +9,7 @@ You can download the binary file in release, tt should work on any debian based 
 ## Install with Singularity or Docker
 This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, **sambamba** and **bbmap** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
 
-```
+```bash
 # 1. Install with Singularity and test it
 singularity pull docker://gambalab/dragmap
 
@@ -18,7 +18,7 @@ singularity exec --bind /usr/lib/locale/ \
     dragen-os --help
 
 # 2. Install with Docker and test it
-docker pull docker://gambalab/dragmap
+docker pull gambalab/dragmap
 
 docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
@@ -26,7 +26,7 @@ docker run -u $(id -u):$(id -g) \
 
 Below is an example of how to use the image with Singularity. The Docker usage is similar, requiring only the appropriate mounting of input files using the -v argument.
 
-```
+```bash
 # Let's define e DRAGMAP_exec variable to excec the several commands 
 DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.sif"
 
@@ -50,13 +50,14 @@ ${DRAGMAP_exec} dragen-os \
 ### ALN PIPELINE
 In the docker/singularity image there is also a one click pipeline we built. It starts from fastQ files and can evantually trim it before to alignment. It also removes dup reads using samtools markdup.
 
-```
+```bash
 # Let's define e DRAGMAP_exec variable to excec the several commands 
 DRAGMAP_exec="singularity exec --bind /usr/lib/locale/ path/to/dragmap_latest.sif"
 
 # Let's see the help
 ${DRAGMAP_exec} run_aln.sh -h
-
+```
+```
 This pipeline employs DragMap for efficient read alignment, incorporating optional preprocessing and post-processing steps.
 
 Key Steps:
@@ -83,7 +84,7 @@ options:
 -t     Trimming. Default false.
 ```
 So a typical case of use will be something like this:
-```
+```bash
 ${DRAGMAP_exec} \
     run_aln.sh \
    -c 24 \
