@@ -26,6 +26,11 @@ print_error(){
  echo "[${Cyan}${dt}${Color_Off}] [${Red}error${Color_Off}] ${1}"
 }
 
+print_warning(){
+ dt=$(date '+%d/%m/%Y %H:%M:%S')
+ echo "[${Red}${dt}${Color_Off}] [${Red}Warning${Color_Off}] ${1}"
+}
+
 ################################################################################
 # Help                                                                         #
 ################################################################################
@@ -184,6 +189,8 @@ if [ "${BED}" != "" ]; then
    if [ -f ${BED} ]; then
       print_info "Bed file provided, compute ontarget coverage.."
       mosdepth_d4 -t ${cpus} --by ${BED} ${STAT_FOLDER}/ontarget.coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
+   else
+      print_warning "Provided BED file do not exist!"
    fi
 else
    print_info "Compute WGS coverage coverage.."
