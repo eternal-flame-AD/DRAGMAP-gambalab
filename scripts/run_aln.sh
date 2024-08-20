@@ -195,9 +195,10 @@ if [ "${BED}" != "" ]; then
 else
    print_info "Compute WGS coverage coverage.."
    mosdepth_d4 -n -t $cpus --fast-mode --by 500 ${STAT_FOLDER}/wgs.coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
-   print_info "ALL FINISHED!!"
 fi
 
 if [ ${DEL_TRIMM} != "false" ]; then
    rm -rf ${FASTQ_FOLDER}
 fi
+
+print_info "ALL FINISHED!!"
