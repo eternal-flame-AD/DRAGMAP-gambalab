@@ -17,12 +17,13 @@ RUN conda create -y -n bio \
 		    bioconda::bbmap=39.06 \
                     && conda clean -a
 
-FROM ubuntu:24.04 AS builder
+FROM ubuntu:24.04 AS base
 
 COPY --from=conda_setup /opt/conda /opt/conda
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        wget \
         build-essential \
         libboost-all-dev \
         libgtest-dev && \
@@ -42,7 +43,7 @@ WORKDIR /opt/dragmap/bin
 RUN cp /opt/dragmap_src/build/release/dragen-os .
 RUN cp /opt/dragmap_src/build/release/compare .
 RUN cp /opt/dragmap_src/scripts/run_aln.sh .
-RUN wget https://github.com/brentp/mosdepth/releases/download/v0.3.8/mosdepth_d4
+RUN wget --no-check-certificate https://github.com/brentp/mosdepth/releases/download/v0.3.8/mosdepth_d4
 RUN chmod +x /opt/dragmap/bin/*
 RUN rm -rf /opt/dragmap_src/
 

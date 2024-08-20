@@ -47,7 +47,7 @@ Help()
 	echo
 	echo -e "This streamlined workflow ensures accurate and efficient read alignment, while the organized output facilitates downstream analysis."
 	echo
-	echo "Syntax: run_dragen.sh [h|s|1|2|o|r|c|t]"
+	echo "Syntax: run_dragen.sh [h|s|1|2|o|r|c|t|b]"
     	echo "options:"
     	echo "-h     Print this Help."
     	echo "-c     Number of cpus to use."

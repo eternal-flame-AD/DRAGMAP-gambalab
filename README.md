@@ -72,7 +72,7 @@ Key Steps:
 
 This streamlined workflow ensures accurate and efficient read alignment, while the organized output facilitates downstream analysis.
 
-Syntax: run_dragen.sh [h|s|1|2|o|r|c|t]
+Syntax: run_dragen.sh [h|s|1|2|o|r|c|t|b]
 options:
 -h     Print this Help.
 -c     Number of cpus to use.
