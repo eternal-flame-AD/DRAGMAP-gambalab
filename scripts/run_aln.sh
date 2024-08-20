@@ -57,7 +57,8 @@ Help()
     	echo "-2     Path to the read2 FASTQ"
     	echo "-r     Path to the Dragmap reference folder."
     	echo "-t     Trimming. Default false."
-      echo "-b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome."
+        echo "-b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome."
+	echo "-d     Delete trimmed fastQ. Default false."
     	echo
 }
 
@@ -66,7 +67,8 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 declare -i count=0
 trim="false"
 BED=""
-while getopts ":ht:c:o:s:1:2:r:t:b:" option; do
+DEL_TRIMM="false"
+while getopts ":ht:c:o:s:1:2:r:t:b:d:" option; do
    case $option in
       h) # display Help
          Help
@@ -101,6 +103,9 @@ while getopts ":ht:c:o:s:1:2:r:t:b:" option; do
       b)
          BED=${OPTARG}
          ;;
+      d)
+	 DEL_TRIMM=${OPTARG}
+	 ;;
       :)
          print_error "Option -${OPTARG} requires an argument."
          exit 1
@@ -184,4 +189,8 @@ else
    print_info "Compute WGS coverage coverage.."
    mosdepth_d4 -n -t $cpus --fast-mode --by 500 ${STAT_FOLDER}/wgs.coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
    print_info "ALL FINISHED!!"
+fi
+
+if [ ${DEL_TRIMM} != "false" ]; then
+   rm -rf ${FASTQ_FOLDER}
 fi
