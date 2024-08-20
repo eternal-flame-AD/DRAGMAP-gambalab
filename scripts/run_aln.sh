@@ -57,6 +57,7 @@ Help()
     	echo "-2     Path to the read2 FASTQ"
     	echo "-r     Path to the Dragmap reference folder."
     	echo "-t     Trimming. Default false."
+      echo "-b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome."
     	echo
 }
 
@@ -64,7 +65,8 @@ Help()
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 declare -i count=0
 trim="false"
-while getopts ":ht:c:o:s:1:2:r:t:" option; do
+BED=""
+while getopts ":ht:c:o:s:1:2:r:t:b:" option; do
    case $option in
       h) # display Help
          Help
@@ -95,6 +97,9 @@ while getopts ":ht:c:o:s:1:2:r:t:" option; do
          ;;
       t)
          trim=${OPTARG}
+         ;;
+      b)
+         BED=${OPTARG}
          ;;
       :)
          print_error "Option -${OPTARG} requires an argument."
@@ -170,7 +175,13 @@ print_info "Indexing ..."
 rm -rf "${ALN_FOLDER}/${SAMPLE}.unsorted.bam"
 ionice -c 3 sambamba index -t ${cpus} "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
 
-print_info "Compute coverage.."
-samtools coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam" > "${STAT_FOLDER}/${SAMPLE}.sorted.uniq.bam.cov.txt"
-print_info "ALL FINISHED!!"
-
+if [ "${BED}" != "" ]; then
+   if [ -f ${BED} ]; then
+      print_info "Bed file provided, compute ontarget coverage.."
+      mosdepth_d4 -t ${cpus} --by ${BED} ${STAT_FOLDER}/ontarget.coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
+   fi
+else
+   print_info "Compute WGS coverage coverage.."
+   mosdepth_d4 -n -t $cpus --fast-mode --by 500 ${STAT_FOLDER}/wgs.coverage "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
+   print_info "ALL FINISHED!!"
+fi

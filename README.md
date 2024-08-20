@@ -7,7 +7,7 @@ Dragmap is the Dragen mapper/aligner Open Source Software.
 You can download the binary file in release, tt should work on any debian based distro. Otherwise a straightforward approach is to utilize the pre-built Docker/Singularity image I've created.
 
 ## Install with Singularity or Docker
-This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, **sambamba** and **bbmap** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
+This image also incorporates some useful tools such as **bcftools**, **samtools**, **tabix**, **sambamba**, **bedtools**, **mosdepth** and **bbmap** for added convenience. To install the DragMap Docker/Singularity image, run the following commands:
 
 ```bash
 # 1. Install with Singularity and test it
@@ -18,7 +18,7 @@ singularity exec --bind /usr/lib/locale/ \
     dragen-os --help
 
 # 2. Install with Docker and test it
-docker pull gambalab/dragmap
+docker pull docker://gambalab/dragmap
 
 docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
@@ -82,6 +82,7 @@ options:
 -2     Path to the read2 FASTQ
 -r     Path to the Dragmap reference folder.
 -t     Trimming. Default false.
+-b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome.
 ```
 So a typical case of use will be something like this:
 ```bash

@@ -13,6 +13,7 @@ RUN conda create -y -n bio \
                     bioconda::samtools=1.20 \
                     bioconda::tabix=0.2.6 \
                     bioconda::sambamba=1.0.1 \
+                    bioconda::bedtools=2.31.1 \
 		    bioconda::bbmap=39.06 \
                     && conda clean -a
 
@@ -41,6 +42,7 @@ WORKDIR /opt/dragmap/bin
 RUN cp /opt/dragmap_src/build/release/dragen-os .
 RUN cp /opt/dragmap_src/build/release/compare .
 RUN cp /opt/dragmap_src/scripts/run_aln.sh .
+RUN wget https://github.com/brentp/mosdepth/releases/download/v0.3.8/mosdepth_d4
 RUN chmod +x /opt/dragmap/bin/*
 RUN rm -rf /opt/dragmap_src/
 
