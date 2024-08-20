@@ -18,7 +18,7 @@ singularity exec --bind /usr/lib/locale/ \
     dragen-os --help
 
 # 2. Install with Docker and test it
-docker pull docker://gambalab/dragmap
+docker pull gambalab/dragmap
 
 docker run -u $(id -u):$(id -g) \
     gambalab/dragmap dragen-os --help
