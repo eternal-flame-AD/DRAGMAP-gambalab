@@ -174,12 +174,14 @@ ionice -c 3 dragen-os \
      ${DRAGMAP_exec} samtools view --threads 2 -bh -o "${ALN_FOLDER}/${SAMPLE}.unsorted.bam"
 
 print_info "Fixmate Sort and rmdup ..."
+TMP_SORT_DIR=$(mktemp -d --tmpdir=${ALN_FOLDER})
 ionice -c 3 samtools fixmate \
         --threads ${cpus} \
         -O bam \
         -rpcm "${ALN_FOLDER}/${SAMPLE}.unsorted.bam" - | \
-        sambamba sort -t ${cpus} -m 16G -o /dev/stdout /dev/stdin | \
+        sambamba sort -t ${cpus} -m 16G --tmpdir=${TMP_SORT_DIR} -o /dev/stdout /dev/stdin | \
         samtools markdup --threads ${cpus} -rS - "${ALN_FOLDER}/${SAMPLE}.sorted.uniq.bam"
+rm -rf ${TMP_SORT_DIR}
 
 print_info "Indexing ..."
 rm -rf "${ALN_FOLDER}/${SAMPLE}.unsorted.bam"
