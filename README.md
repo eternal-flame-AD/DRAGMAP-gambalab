@@ -115,3 +115,16 @@ Binary will be generated in ./build/release/
 Then optionally, to install to /usr/bin/
 
     make install
+
+## Acknowledgements
+Ouw singularity container happily makes use of many open source packages. We would like to specifically call out a few key ones:
+*   [bcftools](https://github.com/samtools/bcftools)
+*   [samtools](https://github.com/samtools/samtools)
+*   [tabix](https://github.com/samtools/tabix)
+*   [sambamba](https://github.com/biod/sambamba)
+*   [bbmap](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbmap-guide/)
+*   [dragen-os](https://github.com/Illumina/DRAGMAP)
+*   [bedtools](https://github.com/arq5x/bedtools2)
+*   [mosdepth](https://github.com/brentp/mosdepth)
+
+We thank all of the developers and contributors to these packages for their work.
