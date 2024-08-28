@@ -117,7 +117,7 @@ Then optionally, to install to /usr/bin/
     make install
 
 ## Acknowledgements
-Ouw singularity container happily makes use of many open source packages. We would like to specifically call out a few key ones:
+Our singularity container happily makes use of many open source packages. We would like to specifically call out a few key ones:
 *   [bcftools](https://github.com/samtools/bcftools)
 *   [samtools](https://github.com/samtools/samtools)
 *   [tabix](https://github.com/samtools/tabix)
