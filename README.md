@@ -75,15 +75,15 @@ This streamlined workflow ensures accurate and efficient read alignment, while t
 Syntax: run_dragen.sh [h|s|1|2|o|r|c|t|b|d]
 options:
 -h     Print this Help.
--c     Number of cpus to use.
--o     Output directory.
--s     Sample name.
--1     Path to the read1 FASTQ
--2     Path to the read2 FASTQ
--r     Path to the Dragmap reference folder.
--t     Trimming. Default false.
--b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome.
--d     Delete trimmed fastQ. Default false.
+-c     Number of cpus to use. (Required)
+-o     Output directory. (Required)
+-s     Sample name. (Required)
+-1     Path to the read1 FASTQ. (Required)
+-2     Path to the read2 FASTQ. (Required)
+-r     Path to the Dragmap reference folder. (Required)
+-t     Trimming. Default false. (Optional)
+-b     BED file with regions will be used to compute coverage. Otherwise coverage stats are computed whole genome. (Optional)
+-d     Delete trimmed fastQ. Default false. (Optional)
 ```
 So a typical case of use will be something like this:
 ```bash
